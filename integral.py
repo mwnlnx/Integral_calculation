@@ -11,11 +11,19 @@ def evaluate_function(func, x):
         print(f"Error in function evaluation: {e}")
         return None
 
-func = input("function:")
-dx = int(input("dx:"))
-a = float(input("a:"))
-b = float(input("b:")) 
-x = np.linspace(a,b,int(dx))
+func = input("function(e.g. np.sin(x), x**2):")
+dx = input("dx:")
+if dx == None:
+    dx = 10000
+
+
+if dx < 0:
+    print("dx must be greater than 0")
+    dx = int(input("dx:"))
+
+a = float(input("lower bound:"))
+b = float(input("upper bound:")) 
+x = np.linspace(a,b,dx)
 y = evaluate_function(func, x)
 
 start_time = time.time()
