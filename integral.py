@@ -21,7 +21,7 @@ y = evaluate_function(func, x)
 start_time = time.time()
 
 
-for _ in range(10000000):
+for _ in range(10 ** 6):
     pass
 
 if y is not None:
