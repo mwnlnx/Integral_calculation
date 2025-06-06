@@ -26,13 +26,26 @@ def evaluate_upper(b):
     except Exception as e:
         print(f"Error in upper bound evaluation:{e}")
         return None
+def derivative(da,func):
+    h = 10 ** -7
+    a1 = evaluate_function(func, da)
+    ah =  evaluate_function(func, da+h)
+    central = (evaluate_function(func,da+h)-evaluate_function(func,da-h))/2*h
+    left = (evaluate_function(func,da+h)-evaluate_function(func,da))/h
+    right = (evaluate_function(func,da)-evaluate_function(func,da-h))/h
+    return "central:", float(central),"left:", float(left) ,"right:", float(right)
+
+def second_derivative(da,func):
+    h = 10 **-6
+    second = (evaluate_function(func,da+h)-2*evaluate_function(func,da)+evaluate_function(func,da-h))/h**2
+    return second
 
 func = input("function(e.g. np.sin(x), x**2):")
 dx = int(input("dx:"))
 if dx < 0:
     print("dx must be greater than 0")
     dx = int(input("dx:"))
-
+da = 0 #point of derivative
 a = input("lower bound:")
 a1 = evaluate_lower(a)
 b = input("upper bound:") 
