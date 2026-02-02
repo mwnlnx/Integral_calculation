@@ -45,9 +45,39 @@ class Integral:
     def Trapzoidal(self):
         return (self.LeftSum()+self.RightSum())/2
 
+class Derivative: 
+
+    def __init__(self,a,b,n,fx_str):
+        
+        if isinstance(a,str):
+            self.a = eval(a, {"np":np, __builtins__:{}}, {})
+        else:
+            self.a = float(a)
+        
+        if isinstance(b,str):
+            self.b = eval(b, {"np":np, __builtins__:{}}, {})
+        else:
+            self.b = float(b)
+        
+        self.n = n
+        self.fx_str = fx_str
+
+    def eval_fx(self,x_values):
+        return eval(self.fx_str, {"np": np, "x": x_values, "__builtins__": {}}, {})
+    
+    def first_point_derivative(self):
+        pass
+    
+    def second_point_derivative(self):
+        pass
+
+
+
 I = Integral(a,b,n,fx_str) 
+
 print(f"Left Sum:{I.LeftSum()}, \nRight Sum:{I.RightSum()}, \nMidpoint Sum:{I.Midpoint()}, \nTrapzoidal Sum:0{I.Trapzoidal()}")
 
          
+
 
  
