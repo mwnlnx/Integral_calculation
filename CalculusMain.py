@@ -3,11 +3,11 @@ import numpy as np
 a = input("input lower bound:")
 b = input("input upper bound:")
 n = int(input("subintervals:"))
-fx = input("Input the function:")
+fx_str = input("Input the function:")
 
 class Integral:
     
-    def __init__(self,a,b,n,fx):
+    def __init__(self,a,b,n,fx_str):
         
         if isinstance(a,str):
             self.a = eval(a, {"np":np, __builtins__:{}}, {})
@@ -21,28 +21,32 @@ class Integral:
         
         self.n = n
         self.x = np.linspace(self.a,self.b,self.n)
+        self.fx_str = fx_str
+        self.dx = (self.b - self.a) / self.n
 
-        if isinstance(fx,str):
-            self.fx_left = eval(fx, {"np":np, "x":self.x[:1], __builtins__:{}}, {})
-            self.fx_right = eval(fx, {"np":np, "x":self.x[:-1], __builtins__:{}}, {})
-        else:
-            print("Error in evaluating Function")
+    def eval_fx(self, x_values):
+        return eval(self.fx_str, {"np": np, "x": x_values, "__builtins__": {}}, {})
 
     def LeftSum(self):
-        dx = (self.b-self.a)/self.n 
-        area = self.fx_left * dx
-        return sum(area)
+        x_left = np.linspace(self.a, self.b - self.dx, self.n)
+        fx_left = self.eval_fx(x_left)
+        return sum(fx_left * self.dx)
 
     def RightSum(self):
-        dx = (self.b-self.a)/self.n
-        area = self.fx_right * dx
-        return sum(area)
+        x_right = np.linspace(self.a + self.dx, self.b, self.n)
+        fx_right = self.eval_fx(x_right)
+        return sum(fx_right * self.dx)
+    
+    def Midpoint(self):
+        x_mid = np.linspace(self.a + self.dx/2, self.b - self.dx/2, self.n)
+        fx_mid = self.eval_fx(x_mid)
+        return sum(fx_mid * self.dx)
     
     def Trapzoidal(self):
         return (self.LeftSum()+self.RightSum())/2
 
-I = Integral(a,b,n,fx) 
-print(I.LeftSum())
+I = Integral(a,b,n,fx_str) 
+print(f"Left Sum:{I.LeftSum()}, \nRight Sum:{I.RightSum()}, \nMidpoint Sum:{I.Midpoint()}, \nTrapzoidal Sum:0{I.Trapzoidal()}")
 
          
 
