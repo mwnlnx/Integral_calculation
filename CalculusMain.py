@@ -61,23 +61,19 @@ class Derivative:
         
         self.n = n
         self.fx_str = fx_str
+        self.x_points = np.linspace(self.a, self.b, self.n)
 
     def eval_fx(self,x_values):
         return eval(self.fx_str, {"np": np, "x": x_values, "__builtins__": {}}, {})
     
-    def first_point_derivative(self):
-        pass
     
-    def second_point_derivative(self):
-        pass
 
 
 
 I = Integral(a,b,n,fx_str) 
-
-print(f"Left Sum:{I.LeftSum()}, \nRight Sum:{I.RightSum()}, \nMidpoint Sum:{I.Midpoint()}, \nTrapzoidal Sum:0{I.Trapzoidal()}")
+D = Derivative(a,b,n,fx_str)
+#print(f"Left Sum:{I.LeftSum()}, \nRight Sum:{I.RightSum()}, \nMidpoint Sum:{I.Midpoint()}, \nTrapzoidal Sum:0{I.Trapzoidal()}")
 
          
-
 
  
